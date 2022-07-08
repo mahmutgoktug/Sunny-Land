@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     float geriTepmeSayaci;
     bool yonSagmi;
 
+    public float ziplaZiplaGucu;
+
 
     Rigidbody2D rb;
 
@@ -127,6 +129,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(0, rb.velocity.y);
 
         anim.SetTrigger("hasar");
+    }
+
+    public void ZiplaZiplaFNC()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, ziplaZiplaGucu);
     }
 
 }
