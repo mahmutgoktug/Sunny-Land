@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -11,11 +12,19 @@ public class UIController : MonoBehaviour
     [SerializeField]
     Sprite doluKalp, yarimKalp, bosKalp;
 
+    
+
+    [SerializeField]
+    TMP_Text mucevherTxt;
+
     PlayerHealthController playerHealthController;
+
+    LevelManager levelManager;
 
     private void Awake()
     {
         playerHealthController = Object.FindObjectOfType<PlayerHealthController>();
+        levelManager = Object.FindObjectOfType<LevelManager>();
     }
 
     public void SaglikDurumunuGuncelle()
@@ -66,5 +75,10 @@ public class UIController : MonoBehaviour
                 kalp3_Img.sprite = bosKalp;
                 break;
         }
+    }
+
+    public void MucevherSayisiniGuncelle()
+    {
+        mucevherTxt.text = levelManager.toplananMucevherSayisi.ToString();
     }
 }

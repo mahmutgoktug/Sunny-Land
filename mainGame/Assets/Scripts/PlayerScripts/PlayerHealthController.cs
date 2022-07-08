@@ -6,6 +6,9 @@ public class PlayerHealthController : MonoBehaviour
 {
     public int maxSaglik, gecerliSaglik;
 
+    [SerializeField]
+    GameObject yokOlmaEfekti;
+
     UIController uiController;
 
     public float yenilmezlikSuresi;
@@ -15,8 +18,13 @@ public class PlayerHealthController : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
 
+    PlayerController playerController;
+
+
     private void Awake()
     {
+        playerController = Object.FindObjectOfType<PlayerController>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         uiController = Object.FindObjectOfType<UIController>();
     }
@@ -46,16 +54,32 @@ public class PlayerHealthController : MonoBehaviour
             {
                 gecerliSaglik = 0;
                 gameObject.SetActive(false);
+                Instantiate(yokOlmaEfekti, transform.position, transform.rotation);
+
             }
             else
             {
                 yenilmezlikSayaci = yenilmezlikSuresi;
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+
+                playerController.GeriTepmeFNC();
             }
 
             uiController.SaglikDurumunuGuncelle();
         }
       
+    }
+
+    public void CaniArtýrFNC()
+    {
+        gecerliSaglik++;
+
+        if (gecerliSaglik >= maxSaglik)
+        {
+            gecerliSaglik = maxSaglik;
+        }
+
+        uiController.SaglikDurumunuGuncelle();
     }
 
 

@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Kurbaga
   layers:
   - Default
   - TransparentFX
@@ -11,8 +12,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Zemin
-  - Player
+  - 
+  - 
   - 
   - 
   - 
@@ -38,18 +39,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
-    uniqueID: 476765499
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: tileMaps
-    uniqueID: 3981585039
-    locked: 0
-  - name: CevreElemanlari
-    uniqueID: 2077913177
-    locked: 0
-  - name: Player
-    uniqueID: 4247777171
     locked: 0

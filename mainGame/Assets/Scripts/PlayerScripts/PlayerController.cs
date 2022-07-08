@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     bool ikiKezZiplayabilirmi;
 
 
+    public float geriTepmeSuresi, geriTepmeGucu;
+    float geriTepmeSayaci;
+    bool yonSagmi;
 
 
     Rigidbody2D rb;
@@ -32,9 +35,31 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        HareketEttir();
-        ZiplaFNC();
-        YonuDegistir();
+        if (geriTepmeSayaci <= 0)
+        {
+            HareketEttir();
+            ZiplaFNC();
+            YonuDegistir();
+        }
+        else
+        {
+            geriTepmeSayaci -= Time.deltaTime;
+
+            if (yonSagmi)
+            {
+                rb.velocity = new Vector2(-geriTepmeGucu, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(geriTepmeGucu, rb.velocity.y);
+            }
+        }
+
+
+        anim.SetFloat("hareketHizi", Mathf.Abs(rb.velocity.x));
+        anim.SetBool("yerdemi", yerdemi);
+
+
     }
 
 
@@ -76,8 +101,7 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        anim.SetFloat("hareketHizi", Mathf.Abs(rb.velocity.x));
-        anim.SetBool("yerdemi", yerdemi);
+        
     }
 
     void YonuDegistir()
@@ -86,13 +110,23 @@ public class PlayerController : MonoBehaviour
 
         if (rb.velocity.x > 0)
         {
+            yonSagmi = true;
             geciciScale.x = 1f;
         } else if (rb.velocity.x<0)
         {
+            yonSagmi = false;
             geciciScale.x = -1f;
         }
 
         transform.localScale = geciciScale;
+    }
+
+    public void GeriTepmeFNC()
+    {
+        geriTepmeSayaci = geriTepmeSuresi;
+        rb.velocity = new Vector2(0, rb.velocity.y);
+
+        anim.SetTrigger("hasar");
     }
 
 }
