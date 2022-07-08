@@ -16,6 +16,10 @@ public class TankController : MonoBehaviour
     public float hareketHizi;
     public Transform solHedef, sagHedef;
     bool yonuSagmi;
+    public GameObject mayinObje;
+    public Transform mayinMerkezNoktasi;
+    public float mayinBirakmaSuresi;
+    float mayinBirakmaSayac;
 
     [Header("AtesEtme")]
     public GameObject mermi;
@@ -26,6 +30,8 @@ public class TankController : MonoBehaviour
     [Header("Darbe")]
     public float darbeSuresi;
     float darbeSayaci;
+
+    public GameObject tankEziciKutu;
 
     private void Start()
     {
@@ -38,6 +44,15 @@ public class TankController : MonoBehaviour
         {
             case tankDurumlari.atesEtme:
                 //ates edildiginde olacak durumlar
+                mermiAtmaSayac -= Time.deltaTime;
+
+                if (mermiAtmaSayac < 0)
+                {
+                    mermiAtmaSayac = mermiAtmaSuresi;
+
+                    var yeniMermi= Instantiate(mermi, mermiMerkezi.position, mermiMerkezi.rotation);
+                    yeniMermi.transform.localScale = tankObje.localScale;
+                }
 
                 break;
 
@@ -50,6 +65,7 @@ public class TankController : MonoBehaviour
                     if (darbeSayaci <= 0)
                     {
                         gecerliDurum = tankDurumlari.hareketEtme;
+                        mayinBirakmaSayac = 0;
                     }
                 }
 
@@ -83,6 +99,15 @@ public class TankController : MonoBehaviour
                     }
                 }
 
+                mayinBirakmaSayac -= Time.deltaTime;
+
+                if (mayinBirakmaSayac <= 0)
+                {
+                    mayinBirakmaSayac = mayinBirakmaSuresi;
+
+                    Instantiate(mayinObje, mayinMerkezNoktasi.position, mayinMerkezNoktasi.rotation);
+                }
+
                 break;
         }
         if (Input.GetKeyDown(KeyCode.R))
@@ -93,17 +118,32 @@ public class TankController : MonoBehaviour
 
     public void DarbeAlFNC()
     {
+        
+
         gecerliDurum = tankDurumlari.darbeAlma;
         darbeSayaci = darbeSuresi;
 
         anim.SetTrigger("Vur");
+
+
+        MayinController[] mayinlar = FindObjectsOfType<MayinController>();
+
+        if (mayinlar.Length > 0)
+        {
+            foreach (MayinController bulunanMayin in mayinlar)
+            {
+                bulunanMayin.PatlamaFNC();
+            }
+        }
+
     }
 
     void HareketiDurdurFNC()
     {
+        tankEziciKutu.SetActive(true);
+
         gecerliDurum = tankDurumlari.atesEtme;
         mermiAtmaSayac = mermiAtmaSuresi;
-
         anim.SetTrigger("HareketiDurdur");
     }
 }
