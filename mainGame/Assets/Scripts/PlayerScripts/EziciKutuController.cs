@@ -29,6 +29,10 @@ public class EziciKutuController : MonoBehaviour
 
             float cikmaAraligi = Random.Range(0, 100f);
 
+
+
+            SesController.instance.SesEfektiCikar(0);
+
             if (cikmaAraligi <= kirazinCikmaSansi)
             {
                 Instantiate(kirazObje, other.transform.position, other.transform.rotation);
