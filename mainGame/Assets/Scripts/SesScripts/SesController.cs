@@ -21,4 +21,14 @@ public class SesController : MonoBehaviour
         sesEfektleri[hangiSes].Stop();
         sesEfektleri[hangiSes].Play();
     }
+
+
+    public void KarisikSesEfektiCikar(int hangiSes)
+    {
+        sesEfektleri[hangiSes].Stop();
+        sesEfektleri[hangiSes].pitch = Random.Range(0.8f, 1.3f);
+
+
+        sesEfektleri[hangiSes].Play();
+    }
 }

@@ -55,7 +55,7 @@ public class PlayerHealthController : MonoBehaviour
                 gecerliSaglik = 0;
                 gameObject.SetActive(false);
                 Instantiate(yokOlmaEfekti, transform.position, transform.rotation);
-
+                SesController.instance.SesEfektiCikar(2);
             }
             else
             {
@@ -63,6 +63,7 @@ public class PlayerHealthController : MonoBehaviour
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
 
                 playerController.GeriTepmeFNC();
+                SesController.instance.SesEfektiCikar(1);
             }
 
             uiController.SaglikDurumunuGuncelle();

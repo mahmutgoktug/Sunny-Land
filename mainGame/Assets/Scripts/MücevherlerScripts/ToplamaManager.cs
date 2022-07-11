@@ -40,6 +40,7 @@ public class ToplamaManager : MonoBehaviour
                 uiController.MucevherSayisiniGuncelle();
 
                 Instantiate(toplamaEfekti, transform.position, transform.rotation);
+                SesController.instance.KarisikSesEfektiCikar(7);
             }
 
             if (kirazmi)
@@ -50,7 +51,7 @@ public class ToplamaManager : MonoBehaviour
                     Destroy(gameObject);
                     playerHealthController.CaniArtýrFNC();
                     Instantiate(toplamaEfekti, transform.position, transform.rotation);
-
+                    SesController.instance.SesEfektiCikar(4);
                 }
             }
 

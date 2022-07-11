@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
             if (yerdemi)
             {
                 rb.velocity = new Vector2(rb.velocity.x, ziplamaGucu);
+                SesController.instance.SesEfektiCikar(3);
             }
             else
             {
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.velocity = new Vector2(rb.velocity.x, ziplamaGucu);
                     ikiKezZiplayabilirmi = false;
+                    SesController.instance.SesEfektiCikar(3);
                 }
 
                
@@ -134,6 +136,7 @@ public class PlayerController : MonoBehaviour
     public void ZiplaZiplaFNC()
     {
         rb.velocity = new Vector2(rb.velocity.x, ziplaZiplaGucu);
+        SesController.instance.SesEfektiCikar(3);
     }
 
 }
