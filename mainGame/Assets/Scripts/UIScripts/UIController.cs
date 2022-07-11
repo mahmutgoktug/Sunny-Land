@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class UIController : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class UIController : MonoBehaviour
     PlayerHealthController playerHealthController;
 
     LevelManager levelManager;
+
+    public GameObject fadeScreen;
 
     private void Awake()
     {
@@ -81,4 +84,11 @@ public class UIController : MonoBehaviour
     {
         mucevherTxt.text = levelManager.toplananMucevherSayisi.ToString();
     }
+
+    public void FadeEkraniAc()
+    {
+        fadeScreen.GetComponent<CanvasGroup>().DOFade(1, .4f);
+    }
+
+    
 }

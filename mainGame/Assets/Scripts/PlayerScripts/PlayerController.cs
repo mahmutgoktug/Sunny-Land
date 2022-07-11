@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     Animator anim;
 
+    public bool hareketEtsinmi;
+
 
     private void Awake()
     {
@@ -35,31 +37,49 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+
+    private void Start()
+    {
+        hareketEtsinmi = true;
+    }
+
+
     private void Update()
     {
-        if (geriTepmeSayaci <= 0)
+        if (hareketEtsinmi)
         {
-            HareketEttir();
-            ZiplaFNC();
-            YonuDegistir();
-        }
-        else
-        {
-            geriTepmeSayaci -= Time.deltaTime;
-
-            if (yonSagmi)
+            if (geriTepmeSayaci <= 0)
             {
-                rb.velocity = new Vector2(-geriTepmeGucu, rb.velocity.y);
+                HareketEttir();
+                ZiplaFNC();
+                YonuDegistir();
             }
             else
             {
-                rb.velocity = new Vector2(geriTepmeGucu, rb.velocity.y);
+                geriTepmeSayaci -= Time.deltaTime;
+
+                if (yonSagmi)
+                {
+                    rb.velocity = new Vector2(-geriTepmeGucu, rb.velocity.y);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(geriTepmeGucu, rb.velocity.y);
+                }
             }
+
+
+            anim.SetFloat("hareketHizi", Mathf.Abs(rb.velocity.x));
+            anim.SetBool("yerdemi", yerdemi);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            anim.SetFloat("hareketHizi", Mathf.Abs(rb.velocity.x));
         }
 
 
-        anim.SetFloat("hareketHizi", Mathf.Abs(rb.velocity.x));
-        anim.SetBool("yerdemi", yerdemi);
+        
 
 
     }

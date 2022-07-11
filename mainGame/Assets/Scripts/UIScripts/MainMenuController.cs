@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject resimObje;
     public GameObject baslaBtn, cikisBtn;
 
+    public GameObject fadeScreen;
+    
 
     private void Start()
     {
@@ -37,11 +40,22 @@ public class MainMenuController : MonoBehaviour
 
     public void OyunaBasla()
     {
-        SceneManager.LoadScene(sahneAdi);
+        StartCoroutine(OyunuAcRoutine());
     }
 
     public void OyundanCikis()
     {
         Application.Quit();
+    }
+
+    IEnumerator OyunuAcRoutine()
+    {
+        yield return new WaitForSeconds(.1f);
+        fadeScreen.GetComponent<CanvasGroup>().DOFade(1, 1f);
+
+        yield return new WaitForSeconds(1f);
+
+
+        SceneManager.LoadScene(sahneAdi);
     }
 }
